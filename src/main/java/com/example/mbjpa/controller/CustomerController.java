@@ -1,0 +1,25 @@
+package com.example.mbjpa.controller;
+
+import com.example.mbjpa.Service.CustomerService;
+import com.example.mbjpa.dto.CreateCustomerRequest;
+import com.example.mbjpa.dto.CustomerResponse;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/v1/customers")
+@RequiredArgsConstructor
+public class CustomerController {
+
+    private final CustomerService customerService;
+
+    @PostMapping
+    public CustomerResponse createNew( @Valid @RequestBody CreateCustomerRequest createCustomerRequest){
+        return customerService.createNew(createCustomerRequest);
+
+    }
+}

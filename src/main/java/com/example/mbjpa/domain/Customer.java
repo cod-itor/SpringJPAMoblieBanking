@@ -47,7 +47,8 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer") //many acc can be owned by one customer
     private List<Accounts> accounts;
-    @OneToOne( cascade = CascadeType.ALL)
+
+    @OneToOne( mappedBy = "customer", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private KYC kyc;
 }
