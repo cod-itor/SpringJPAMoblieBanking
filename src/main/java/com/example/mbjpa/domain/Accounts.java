@@ -36,4 +36,10 @@ public class Accounts {
     @ManyToOne // one customer can be owned by many acc
     @JoinColumn(name = "cust_id") //change the column costume name into what i want
     private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "account_type_id")
+    private AccountType accountType;
+
+
 }
