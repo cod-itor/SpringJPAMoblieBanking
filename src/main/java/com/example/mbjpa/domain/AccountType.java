@@ -15,7 +15,6 @@ import java.util.List;
 @Table(name = "account_type")
 public class AccountType {
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String checkingAccount;
