@@ -7,11 +7,16 @@ import com.example.mbjpa.domain.Accounts;
 import com.example.mbjpa.dto.AccountResponse;
 import com.example.mbjpa.dto.CreateAccountRequest;
 import com.example.mbjpa.dto.UpdateAccountRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
-
+import java.util.Random;
+@Service
 @Slf4j
+@RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
@@ -24,40 +29,70 @@ public class AccountServiceImpl implements AccountService {
          Accounts account = accountMapper.toAccount(createAccountRequest);
          account.setIsDeleted(false);
 
+        String generatedActNo = generateAccountNumber();
+        account.setActNo(generatedActNo);
+
          account = accountRepository.save(account);
          log.info("Account Before save: {}",account.getActNo());
 
-
         return AccountResponse.builder()
-                .actNo()
+                .actNo(account.getActNo())
                 .actType(account.getActType())
-                .balance(accountRepository)
+                .balance(account.getBalance())
                 .build();
     }
 
     @Override
     public List<AccountResponse> findAll() {
-
-        return List.of();
+        List<Accounts> accounts = accountRepository.findAll();
+        return accounts
+                .stream()
+                .map(accountMapper::FromAccount)
+                .toList();
     }
 
     @Override
     public AccountResponse findByActNo(String actNo) {
-        return null;
+        return accountRepository.findByActNo(actNo)
+                .map(accountMapper::FromAccount)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Account not exist"));
     }
 
     @Override
     public void deleteByActNo(String actNo) {
-
+        Accounts accounts = accountRepository
+                .findByActNo(actNo)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Account not Found"));
+accountRepository.delete(accounts);
     }
 
     @Override
     public AccountResponse updateByActNo(String actNo, UpdateAccountRequest updateAccountRequest) {
+
+        Accounts accounts = accountRepository
+                .findByActNo(actNo)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,"Account not found"));
+        accountMapper.toAccountPartially(updateAccountRequest,accounts);
+
+        accountRepository.save(accounts);
         return null;
     }
 
     @Override
     public AccountResponse disableAcc(String actNo) {
+
+        A
+
         return null;
+    }
+
+    private String generateAccountNumber() {
+        String actNo;
+        do {
+            int randomSixDigit = 100000 + new Random().nextInt(900000);
+            actNo = "ACC" + randomSixDigit;
+        } while (accountRepository.existsByActNo(actNo));
+        return actNo;
     }
 }
