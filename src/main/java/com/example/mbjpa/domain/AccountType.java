@@ -24,6 +24,6 @@ public class AccountType {
     private String jointAccount;
     private String studentAccount;
 
-@OneToMany(mappedBy = "accountType", cascade = CascadeType.ALL)
-    private List<Accounts> accounts;
+//@OneToMany(mappedBy = "accountType", cascade = CascadeType.ALL)
+//    private List<Accounts> accounts;
 }
