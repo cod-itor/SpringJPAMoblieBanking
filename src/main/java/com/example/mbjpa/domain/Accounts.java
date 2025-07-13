@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -26,21 +29,27 @@ public class Accounts {
 
     private String actType;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 19, scale = 4)
 
-    private Double balance;
+    private BigDecimal balance;
 
     @Column(nullable = false)
 
     private Boolean isDeleted;
 
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
     @ManyToOne // one customer can be owned by many acc
     @JoinColumn(name = "cust_id") //change the column costume name into what i want
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "account_type_id")
-    private AccountType accountType;
+//    @ManyToOne
+//    @JoinColumn(name = "account_type_id")
+//    private AccountType accountType;
 
 
 

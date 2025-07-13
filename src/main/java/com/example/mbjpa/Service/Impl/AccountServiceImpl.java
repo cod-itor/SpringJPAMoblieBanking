@@ -80,11 +80,11 @@ accountRepository.delete(accounts);
     }
 
     @Override
-    public AccountResponse disableAcc(String actNo) {
-
-        A
-
-        return null;
+    public void disableAcc(String actNo) {
+        Accounts account = accountRepository.findByActNo(actNo)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
+        account.setIsDeleted(true);
+        accountRepository.save(account);
     }
 
     private String generateAccountNumber() {

@@ -12,7 +12,7 @@ public interface AccountService {
     AccountResponse findByActNo(String actNo);
     void deleteByActNo(String actNo);
     AccountResponse updateByActNo(String actNo, UpdateAccountRequest updateAccountRequest);
-    AccountResponse disableAcc(String actNo);
+    void disableAcc(String actNo);
 
 
 
