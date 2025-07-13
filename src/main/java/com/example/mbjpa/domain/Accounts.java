@@ -1,6 +1,7 @@
 package com.example.mbjpa.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,6 +41,8 @@ public class Accounts {
     @ManyToOne
     @JoinColumn(name = "account_type_id")
     private AccountType accountType;
+
+
 
 
 }

@@ -13,6 +13,7 @@ public record CreateCustomerRequest(
         String gender,
 
         String email,
+        @NotBlank(message = "Phone number is required")
         String phoneNumber,
         String remark
 ) {

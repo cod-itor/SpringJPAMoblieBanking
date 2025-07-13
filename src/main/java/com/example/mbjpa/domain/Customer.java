@@ -21,6 +21,9 @@ public class Customer {
 
     private Integer id;
 
+//    @Column(nullable = false,unique = true)
+//    private String uuid;
+
     @Column(nullable = false)
 
     private String fullName;// the (a) next to the side of the number bar is (altribute)

@@ -3,3 +3,14 @@ MAKE A TABLE
 - ACCOUNTTYPE (CHECK ALL OF THE BANK CLASSES)
 - TRANSACTION_TYPE : EXAMPLE PAYMENT, TRANSFER,
 - TRANSACTION  (ID, TRANSACTION_TYPE ,SENDER,RECEIVER, AMOUNT, REMARK) (send and receiver is also an account)
+
+CRUD ACCOUNT
+
+challenge is the connection between the cusotmer and the account
+
+-find all
+-find one acc
+-find by account Number
+-find acc by costumer
+-delete acc
+-update acc

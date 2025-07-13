@@ -1,6 +1,6 @@
 package com.example.mbjpa.dto;
 
-public record CustomerUpdate(
+public record DeleteCustomerRequest(
         String fullName,
         String email,
         String phoneNumber,
