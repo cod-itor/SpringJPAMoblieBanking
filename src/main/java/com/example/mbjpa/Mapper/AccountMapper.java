@@ -1,10 +1,9 @@
 package com.example.mbjpa.Mapper;
 
 import com.example.mbjpa.domain.Accounts;
-import com.example.mbjpa.dto.AccountResponse;
-import com.example.mbjpa.dto.CreateAccountRequest;
-import com.example.mbjpa.dto.UpdateAccountRequest;
-import com.example.mbjpa.dto.UpdateCustomerRequest;
+import com.example.mbjpa.dto.Account.AccountResponse;
+import com.example.mbjpa.dto.Account.CreateAccountRequest;
+import com.example.mbjpa.dto.Account.UpdateAccountRequest;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

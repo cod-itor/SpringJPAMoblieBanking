@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.swing.text.Segment;
 import java.util.List;
 
 @Getter
@@ -20,6 +21,9 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Integer id;
+
+    @Column(nullable = false)
+    private String nationalCardId;
 
 //    @Column(nullable = false,unique = true)
 //    private String uuid;
@@ -54,4 +58,9 @@ public class Customer {
     @OneToOne( mappedBy = "customer", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private KYC kyc;
+
+    @ManyToOne
+    @JoinColumn(name = "segment_id")
+    private CustomerSegment customerSegment;
+
 }

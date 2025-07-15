@@ -1,14 +1,14 @@
 package com.example.mbjpa.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
 public class KYC {
     @Id
 
@@ -22,7 +22,7 @@ public class KYC {
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "cust_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
 }

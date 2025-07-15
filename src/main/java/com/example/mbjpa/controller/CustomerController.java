@@ -20,6 +20,12 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @PutMapping("{phoneNumber}")
+    public void disableByPhoneNumber(@PathVariable String phoneNumber ){
+        customerService.disableByPhoneNumber((phoneNumber));
+    }
+
     @DeleteMapping("{phoneNumber}")
     public void deleteByPhoneNumber(
             @PathVariable String phoneNumber

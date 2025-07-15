@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -17,13 +18,16 @@ public class AccountType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String checkingAccount;
-    private String savingAccount;
-    private String depositAccount;
-    private String businessAccount;
-    private String jointAccount;
-    private String studentAccount;
 
-//@OneToMany(mappedBy = "accountType", cascade = CascadeType.ALL)
-//    private List<Accounts> accounts;
+    @Column(nullable = false, unique = true)
+    private String uuid= UUID.randomUUID().toString();
+
+    @Column(unique = true, nullable = false, length = 30)
+    private String name;
+
+    @Column(nullable = false)
+    private Boolean isDeleted = false;
+
+    @OneToMany(mappedBy = "accountType")
+    private Accounts accounts;
 }

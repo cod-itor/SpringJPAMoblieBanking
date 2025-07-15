@@ -1,8 +1,8 @@
 package com.example.mbjpa.Service;
 
-import com.example.mbjpa.dto.AccountResponse;
-import com.example.mbjpa.dto.CreateAccountRequest;
-import com.example.mbjpa.dto.UpdateAccountRequest;
+import com.example.mbjpa.dto.Account.AccountResponse;
+import com.example.mbjpa.dto.Account.CreateAccountRequest;
+import com.example.mbjpa.dto.Account.UpdateAccountRequest;
 
 import java.util.List;
 
@@ -12,14 +12,6 @@ public interface AccountService {
     AccountResponse findByActNo(String actNo);
     void deleteByActNo(String actNo);
     AccountResponse updateByActNo(String actNo, UpdateAccountRequest updateAccountRequest);
-    void disableAcc(String actNo);
 
-
-
-
-
-
-
-
-
+    AccountResponse disableAcc(String actNo, Boolean disable);
 }

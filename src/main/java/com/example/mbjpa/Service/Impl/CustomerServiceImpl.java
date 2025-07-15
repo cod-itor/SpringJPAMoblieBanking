@@ -7,6 +7,7 @@ import com.example.mbjpa.domain.Customer;
 import com.example.mbjpa.dto.CreateCustomerRequest;
 import com.example.mbjpa.dto.CustomerResponse;
 import com.example.mbjpa.dto.UpdateCustomerRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,17 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 
     private final CustomerMapper customerMapper;
+
+@Transactional
+    @Override
+    public void disableByPhoneNumber(String phoneNumber) {
+        if(!customerRepository.isExistByPhoneNumber(phoneNumber)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Phone Number not found");
+
+        }
+        customerRepository.disableByPhoneNumber(phoneNumber);
+
+    }
 
     @Override
     public CustomerResponse updateByPhoneNumber(String phoneNumber, UpdateCustomerRequest updateCustomerRequest) {
@@ -68,6 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
          log.info("Customer before save: {}",customer.getId());
 
         return CustomerResponse.builder()
+                .nationalCardId(customer.getNationalCardId())
                 .fullName(customer.getFullName())
                 .gender(customer.getGender())
                 .email(customer.getEmail())
@@ -78,7 +91,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerResponse> findAll() {
-        List<Customer> customers = customerRepository.findAll();
+        List<Customer> customers = customerRepository.findAllByIsDeletedFalse();
         return customers
                 .stream()
                 .map(customerMapper::fromCustomer)
@@ -88,7 +101,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteByPhoneNumber(String phoneNumber) {
         Customer customer = customerRepository
-                .findByPhoneNumber(phoneNumber)
+                .findByPhoneNumberAndIsDeletedFalse(phoneNumber)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Customer not FOUND"));
         customerRepository.delete(customer);
 

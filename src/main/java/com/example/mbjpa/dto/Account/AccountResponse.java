@@ -1,4 +1,4 @@
-package com.example.mbjpa.dto;
+package com.example.mbjpa.dto.Account;
 
 import lombok.Builder;
 

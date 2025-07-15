@@ -1,7 +1,10 @@
 package com.example.mbjpa.controller;
 
 import com.example.mbjpa.Service.AccountService;
-import com.example.mbjpa.dto.*;
+import com.example.mbjpa.dto.Account.AccountResponse;
+import com.example.mbjpa.dto.Account.CreateAccountRequest;
+import com.example.mbjpa.dto.Account.DisableAccount;
+import com.example.mbjpa.dto.Account.UpdateAccountRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,9 +39,13 @@ public class AccountController {
          accountService.deleteByActNo(actNo);
     }
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("{actNo}")
+    @PostMapping("/update/{actNo}")
     public AccountResponse updateByActNo(@PathVariable String actNo, UpdateAccountRequest updateAccountRequest){
         return accountService.updateByActNo(actNo ,updateAccountRequest);
+    }
+    @PostMapping("{actNo}")
+    public AccountResponse disableAcc(@PathVariable String actNo ,@RequestBody DisableAccount disableAccount){
+    return accountService.disableAcc(actNo,disableAccount.is_delelted());
 
     }
 

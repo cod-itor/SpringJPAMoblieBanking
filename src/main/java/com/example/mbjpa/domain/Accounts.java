@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,11 +22,11 @@ public class Accounts {
 
     private Integer id;
 
-    @Column( name = "account_Number", nullable = false, unique = true, length = 20)
+    @Column( name = "account_Number", nullable = false)
 
     private String actNo;
 
-    @Column( name = "account_Type", nullable = false, length = 50)
+    @Column( name = "account_Type", nullable = false)
 
     private String actType;
 
@@ -44,13 +45,20 @@ public class Accounts {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     @ManyToOne // one customer can be owned by many acc
-    @JoinColumn(name = "cust_id") //change the column costume name into what i want
+    @JoinColumn(name = "customer_id") //change the column costume name into what i want
     private Customer customer;
 
 //    @ManyToOne
 //    @JoinColumn(name = "account_type_id")
 //    private AccountType accountType;
+    @ManyToOne()
+    private CustomerSegment customerSegment;
 
+    @OneToMany(mappedBy = "sender")
+    private List<Transaction> sentTransaction;
+
+    @OneToMany
+    private List<Transaction> receivedTransaction;
 
 
 

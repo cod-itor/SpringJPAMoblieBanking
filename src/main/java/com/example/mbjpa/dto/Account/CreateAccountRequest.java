@@ -1,7 +1,6 @@
-package com.example.mbjpa.dto;
+package com.example.mbjpa.dto.Account;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

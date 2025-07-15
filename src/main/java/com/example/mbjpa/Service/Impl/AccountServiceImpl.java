@@ -4,9 +4,9 @@ import com.example.mbjpa.Mapper.AccountMapper;
 import com.example.mbjpa.Repository.AccountRepository;
 import com.example.mbjpa.Service.AccountService;
 import com.example.mbjpa.domain.Accounts;
-import com.example.mbjpa.dto.AccountResponse;
-import com.example.mbjpa.dto.CreateAccountRequest;
-import com.example.mbjpa.dto.UpdateAccountRequest;
+import com.example.mbjpa.dto.Account.AccountResponse;
+import com.example.mbjpa.dto.Account.CreateAccountRequest;
+import com.example.mbjpa.dto.Account.UpdateAccountRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -78,13 +78,13 @@ accountRepository.delete(accounts);
         accountRepository.save(accounts);
         return null;
     }
-
     @Override
-    public void disableAcc(String actNo) {
-        Accounts account = accountRepository.findByActNo(actNo)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
-        account.setIsDeleted(true);
-        accountRepository.save(account);
+    public AccountResponse disableAcc(String actNo, Boolean disable) {
+        Accounts accounts = accountRepository.findByActNo(actNo)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Account not found"));
+        accounts.setIsDeleted(disable);
+        Accounts accounts1 = accountRepository.save(accounts);
+        return accountMapper.FromAccount(accounts1);
     }
 
     private String generateAccountNumber() {
